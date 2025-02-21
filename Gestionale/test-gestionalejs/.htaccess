@@ -1,0 +1,14 @@
+RewriteEngine On
+
+# Se il file o la cartella esistono, servili normalmente
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Eccezione: se la richiesta è per un file PHP, NON reindirizzare a React
+RewriteRule \.php$ - [L]
+
+# Altrimenti, reindirizza tutto a React (cartella build)
+RewriteRule ^(.*)$ /build/$1 [L]
+
+# Imposta React come pagina principale
+DirectoryIndex /build/index.html

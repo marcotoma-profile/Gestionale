@@ -1,0 +1,101 @@
+.mainpage-container {
+    margin-top: 300px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+/* Contenitore del testo */
+.text-container {
+    background: #f8f9fa;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    line-height: 1.6;
+}
+
+.text-container strong {
+    color: #0056b3;
+}
+
+/* Contenitore pratiche */
+.pratiche-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+}
+
+/* Singola pratica */
+.pratica-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 30px;
+    background: white;
+    padding: 5px;
+    border-bottom: 1px solid gray;
+    height: 24px;
+    transition: background-color 0.3s ease;
+}
+
+.id-temp {
+    font-size: 12px;
+    color: #444;
+    margin: 5px 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: flex-start;
+    width: 80px;
+}
+
+.prt-info {
+    font-size: 12px;
+    color: #444;
+    margin: 5px 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: flex-start;
+    width: 20%;
+}
+
+.minimo {
+    width: 10%;
+}
+
+
+.pratica-container:hover {
+    background-color: lightgray;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .pratiche-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .text-container {
+        font-size: 1rem;
+        padding: 15px;
+    }
+
+    .pratica-container {
+        width: 90%;
+    }
+}

@@ -21,11 +21,11 @@ class PraticheManager {
         return this.#listapratiche;
     }
 
-    async loadPratiche(email) {
+    async loadPratiche(username) {
         /**
          * serve per gestire il load delle pratiche. poi dovrà prendere in input la mail dell'utente loggato
          */
-        const ret = await Pratica.loadPratiche();
+        const ret = await Pratica.loadPratiche(username);
         this.#listapratiche = ret;
         return this.#listapratiche;
     }

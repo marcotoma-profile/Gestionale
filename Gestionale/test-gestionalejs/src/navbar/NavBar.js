@@ -12,7 +12,8 @@ const NavBar = ({ setView, setNews }) => {
             if (setView)
                 setView('login');
         }
-    }
+    };
+    
 
     return <div className="navbar-container">
             <Box
@@ -29,9 +30,9 @@ const NavBar = ({ setView, setNews }) => {
         <div className="navbar-items">
             <div>prova</div>
             <div>prova</div>
-            <div>prova</div>
+            <div onClick={() => setView('settings')}>Gestisci utenze</div>
         </div>
-        {LogicManager.getInstance().getUserManager().userLogged() && <div className="logout-container" onClick={() => doLogout()}>
+        {LogicManager.getInstance().getUserManager().getUserLogged() && <div className="logout-container" onClick={() => doLogout()}>
             Logout
         </div>}
     </div>;

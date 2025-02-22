@@ -16,6 +16,16 @@
         session_start();
     }
 
+    if (isset($_SESSION["email"])) {
+        $user = [
+            'id' => $_SESSION['id'],
+            'username' => $_SESSION['username'],
+            'is_admin' => $_SESSION['isAdmin']
+        ];
+        echo json_encode($user);
+        exit;
+    }
+
     // prende i dati di input
     $input_data = file_get_contents("php://input");
     $input = json_decode($input_data, true);
@@ -35,7 +45,7 @@
         $passwd = $input["password"];
 
         try {
-            $query = "SELECT * FROM Users WHERE user_name=:username";
+            $query = "SELECT u.id, u.user_name, u.is_admin, u.attivato, u.password FROM Users u WHERE u.user_name=:username";
             $stmt = $pdo->prepare($query);
             $stmt->bindParam(":username", $username);
             
@@ -79,6 +89,7 @@
 
             $_SESSION['id'] = $user['id'];
             $_SESSION['email'] = $username;
+            $_SESSION['isAdmin'] = $user['is_admin'];
 
             echo json_encode($response);
             exit;

@@ -8,8 +8,8 @@ const MainPage = () => {
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         const fetchPratiche = async () => {
-            const ret = await LogicManager.getInstance().getPraticheManager().loadPratiche('');
-            console.log(ret);
+            const userEmail = LogicManager.getInstance().getUserManager().getCurrentUser().getUserName();
+            const ret = await LogicManager.getInstance().getPraticheManager().loadPratiche(userEmail);
             
             if (ret){
                 setPrtList(ret);
@@ -38,7 +38,7 @@ const MainPage = () => {
                 <div className='prt-info'>Cliente</div>
             </div>
         {loading ? (<p>Caricamento...</p>) : 
-            ( prtList.length>0 && prtList.map(iter => <div className='pratica-container' key={iter.getId()}>
+            ( prtList.length>0 ? prtList.map(iter => <div className='pratica-container' key={iter.getId()}>
                 <div className='prt-info minimo'>
                     {iter.getPrgPratica()}
                 </div>
@@ -54,7 +54,11 @@ const MainPage = () => {
                 <div className='prt-info'>
                     {iter.getNomeCliente()}
                 </div>
-             </div>))}
+             </div>) : <div>
+                non ci sono ancora pratiche da vedere
+             </div>
+            )
+        }
              </div>
     </div>
 }

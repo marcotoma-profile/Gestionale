@@ -5,7 +5,6 @@ class Pratica {
     #titolo;
     #titolare;
     #incaricato;
-    #descrizione;
     #prg_pratica;
     #nomeCliente;
 
@@ -13,9 +12,8 @@ class Pratica {
         this.#id = data['id'];
         this.#titolo = data['titolo'];
         this.#titolare = data['titolare']
-        this.#descrizione = data['descrizione']; // rappresenta il tipo della pratica
         this.#prg_pratica = data['prg_pratica'];
-        this.#incaricato = data['user_name'];
+        this.#incaricato = data['incaricato'];
         this.#nomeCliente = data['nome'];
     }
 
@@ -31,10 +29,6 @@ class Pratica {
         return this.#titolare;
     }
 
-    getDescrizionePratica() {
-        return this.#descrizione;
-    }
-
     getPrgPratica() {
         return this.#prg_pratica;
     }
@@ -47,8 +41,8 @@ class Pratica {
         return this.#nomeCliente;
     }
 
-    static async loadPratiche() {
-        const ret = await PersistanceManager.doGet('loadpratiche.php?azione=1&username=m.toselli'); // da cambiare con l'email che è stata utilizzata per il login
+    static async loadPratiche(username) {
+        const ret = await PersistanceManager.doGet('loadpratiche.php?azione=1&username=' + username); // da cambiare con l'email che è stata utilizzata per il login
 
         if (ret['error']) {
             // devo gestire il caso di errore
@@ -63,7 +57,7 @@ class Pratica {
     }
 
     toString() {
-        return 'id: ' + this.#id + '\ntitolo: ' + this.#titolo + '\ndesc: ' + this.#descrizione +
+        return 'id: ' + this.#id + '\ntitolo: ' + this.#titolo +
             '\nuser: ' + this.#incaricato + '\nnome: ' + this.#nomeCliente;
     }
 

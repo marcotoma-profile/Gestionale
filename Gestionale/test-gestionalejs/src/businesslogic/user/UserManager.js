@@ -4,8 +4,12 @@ class UserManager {
     #currentUser = null;
     #userLogged = false;
 
-    userLogged() {
+    getUserLogged() {
         return this.#userLogged;
+    }
+
+    getCurrentUser() {
+        return this.#currentUser;
     }
 
     async doLogin(username, passwd) {

@@ -27,10 +27,15 @@
      if ($action != ''){
         try{
             switch($action) {
-                case 1: $query = "SELECT p.*, u.user_name, a.nome from pratiche p join users u on p.\"incaricato\" = u.id join anagrafiche a on p.cliente=a.id where u.user_name=:user_name and p.stato='Aperta' order by prg_pratica;";
+                // select pratiche where incaricato == utente loggato
+                case 1: $query = "SELECT p.id, prg_pratica, titolare, incaricato, titolo, a.nome from pratiche p join users u on p.incaricato=u.user_name join anagrafiche a on p.cliente=a.id where u.user_name=:user_name and p.stato='Aperta' order by prg_pratica";
                     $stmt = $pdo->prepare($query);
                     $stmt->bindParam(":user_name", $email);
                     break;
+                // caso in cui l'utente è incaricato di uno dei dossier allegati alle pratiche.
+                case 2: $query = "";
+                    $stmt = $pdo;
+                
                 default: break;
             }
             

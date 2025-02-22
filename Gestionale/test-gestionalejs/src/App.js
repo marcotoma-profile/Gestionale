@@ -15,7 +15,8 @@ function App() {
     if (option === 1) {
       const newError = LogicManager.getInstance().getExceptionManager().getMessage();
       
-      if (newError !== ""){
+      if (newError.length > 0){
+        
         setNews(prev => [...prev, newError]);
         setTimeout(() => {refreshError(-1)}, 3000);
       }

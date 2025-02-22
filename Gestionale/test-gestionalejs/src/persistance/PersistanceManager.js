@@ -2,7 +2,7 @@
 
 class PersistanceManager {
 
-     static urlbackend = "http://localhost:8000/test-gestionalejs/php/"; // da usare quando si usa npm start
+     static urlbackend = "http://localhost:8000/php/"; // da usare quando si usa npm start
     // static urlbackend = "http://localhost/php/"; // da usare quando si fa una build
 
     static async doGet (phpfile) {

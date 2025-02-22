@@ -6,9 +6,8 @@ class User {
     #email;
     #user_name;
     #isAdmin;
-    constructor (id, email, user_name, isadmin,) {
+    constructor (id, user_name, isadmin,) {
         this.#id = id;
-        this.#email = email;
         this.#user_name = user_name;
         this.#isAdmin = isadmin;
     }
@@ -22,7 +21,7 @@ class User {
     }
 
     description () {
-        return "Name: " + this.user_name + "\nEmail: " + this.email;
+        return "Name: " + this.user_name;
     } 
 
     static async doLogin(username, passwd) {
@@ -34,7 +33,7 @@ class User {
             throw new UserLogicException("error", ret["errorMessage"]);
         }
 
-        const user = new User(ret["user"]["id"], ret["user"]["email"], ret["user"]["user_name"], ret["user"]["isAdmin"]);
+        const user = new User(ret["user"]["id"], ret["user"]["user_name"], ret["user"]["isAdmin"]);
         new UserLogicException("success", "Login avvenuto con successo");
         if (ret["redirect"]) {
             window.location.href = ret["redirect"];
@@ -48,6 +47,13 @@ class User {
          */
         new UserLogicException('success', "Logout avvenuto con successo");
         return true;
+    }
+
+    static async loadUserList() {
+        /**
+         * serve per fare la load degli utenti in modo da poter modificare/aggiungere o eliminare una utenza
+         */
+        
     }
 }
 

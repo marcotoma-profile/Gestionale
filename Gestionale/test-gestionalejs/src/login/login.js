@@ -1,6 +1,6 @@
 import "../css/login/login.css";
 import {TextField, Button } from '@mui/material';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LogicManager from "../businesslogic/LogicManager";
 
 
@@ -19,6 +19,10 @@ const Login = ({ setView, setError }) => {
             setError(1);
         }           
     }
+
+    useEffect(() => {
+        //doLogin();
+    }, [])
 
     return <div className="login-page">
         <div className="login-container">

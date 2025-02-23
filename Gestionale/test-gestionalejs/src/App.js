@@ -5,11 +5,14 @@ import Login from './login/login.js'
 import NavBar from './navbar/NavBar.js';
 import LogicManager from "./businesslogic/LogicManager.js";
 import MainPage from "./mainpage/main.js";
+import SettingPage from "./settings/settingpage.js";
 
 
 function App() {
   const [news, setNews] = useState([]);
   const [view, setView] = useState('login');
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalView, setModalView] = useState('');
 
   const refreshError = (option) => {    
     if (option === 1) {
@@ -35,6 +38,10 @@ function App() {
       {(news && news.length > 0) && <Error message={news} setError={(err) => refreshError(err)}/>}
       {view === 'login' && <Login setView={(view) => setView(view)} setError={(err) => refreshError(err)}/>}
       {view === 'mainpage' && <MainPage />}
+      {view === 'settings' && <SettingPage refreshError={(err) => refreshError(err)} setModalView={(view) => {
+            setModalView(view);
+            setModalVisible(true);
+        }} setModalVisible={(visib) => setModalVisible(visib)} modalVisible={modalVisible} />}
     </div>
   );
 }

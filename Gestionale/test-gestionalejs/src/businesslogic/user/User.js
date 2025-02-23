@@ -3,13 +3,16 @@ import UserLogicException from "../error/UserLogicException";
 
 class User {
     #id;
-    #email;
     #user_name;
     #isAdmin;
     constructor (id, user_name, isadmin,) {
         this.#id = id;
         this.#user_name = user_name;
         this.#isAdmin = isadmin;
+    }
+
+    getId() {
+        return this.#id;
     }
 
     getIsAdmin() {
@@ -24,6 +27,24 @@ class User {
         return "Name: " + this.user_name;
     } 
 
+    async loadUserList() {
+        /**
+         * serve per fare la load degli utenti in modo da poter modificare/aggiungere o eliminare una utenza
+         */
+        
+        const ret = await PersistanceManager.doGet('users.php?azione=1&username='+this.#user_name);
+        
+        if (ret['error']){
+            new UserLogicException('error', ret['errorMessage']);
+        }
+        const userList = [];
+        for (let user of ret['users']) {
+            userList.push(new User(user['id'], user['user_name'], user['is_admin']));
+        }
+
+        return userList;
+    }
+
     static async doLogin(username, passwd) {
         const data = {username: username, password: passwd};
 
@@ -33,11 +54,8 @@ class User {
             throw new UserLogicException("error", ret["errorMessage"]);
         }
 
-        const user = new User(ret["user"]["id"], ret["user"]["user_name"], ret["user"]["isAdmin"]);
+        const user = new User(ret["user"]["id"], ret["user"]["user_name"], ret["user"]["is_admin"]);
         new UserLogicException("success", "Login avvenuto con successo");
-        if (ret["redirect"]) {
-            window.location.href = ret["redirect"];
-        }
         return user;
     }
 
@@ -49,11 +67,25 @@ class User {
         return true;
     }
 
-    static async loadUserList() {
+    static async createNewUser(username, email, password, isadmin) {
         /**
-         * serve per fare la load degli utenti in modo da poter modificare/aggiungere o eliminare una utenza
+         * funzione usata per creare una nuova utenza. Devo ritornare un booleano
          */
+
+        // prima faccio la chiamata al server, poi aggiorno l'id
+        const data = {username: username, email: email, password: password, isAdmin: isadmin};
         
+        const ret = await PersistanceManager.doPost(data, 'users.php?azione=2');
+
+        if (ret['error']){
+            new UserLogicException('error', ret['errorMessage']);
+            return;
+        }
+        
+        const userRet = new User(ret['lastId'], username, isadmin);
+        new UserLogicException("success", "Utente creato con successo.")
+        
+        return userRet;
     }
 }
 

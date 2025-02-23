@@ -1,0 +1,75 @@
+/* Styles for UsersList Component */
+
+.users-container {
+    margin-top: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    padding: 16px;
+}
+
+.users-wrapper {
+    width: 70%;
+    max-width: 800px;
+    background: white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    padding: 16px;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.users-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #4a4a4a;
+    margin-bottom: 16px;
+}
+
+.users-grid {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 16px;
+}
+
+.user-card {
+    flex-grow: 1;
+    padding: 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+    background: #f9f9f9;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 50px;
+}
+
+.user-card:hover {
+    background-color:rgba(0, 0, 0, 0.10);
+}
+
+.user-name {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+}
+
+.user-role {
+    font-size: 0.875rem;
+    color: #666;
+}
+
+.admin {
+    color: #1f8a37;
+    font-weight: 600;
+}
+
+.non-admin {
+    color: #d32f2f;
+    font-weight: 600;
+}

@@ -1,8 +1,12 @@
 import { Box } from "@mui/material";
 import "../css/navbar/navbar.css"
 import LogicManager from "../businesslogic/LogicManager";
+import { useState, useEffect } from "react";
 
 const NavBar = ({ setView, setNews }) => {
+
+    const [userLogged, setUserLogged] = useState(LogicManager.getInstance().getUserManager().getUserLogged());
+    const [isadmin, setIsadmin] = useState(LogicManager.getInstance().getUserManager().getCurrentUser().getIsAdmin());
 
     const doLogout = () => {
         const logout = LogicManager.getInstance().getUserManager().doLogout();
@@ -13,7 +17,12 @@ const NavBar = ({ setView, setNews }) => {
                 setView('login');
         }
     };
-    
+
+    useEffect(() => {
+        setIsadmin(LogicManager.getInstance().getUserManager().getCurrentUser().getIsAdmin());
+        setUserLogged(LogicManager.getInstance().getUserManager().getUserLogged());
+        
+    }, [LogicManager.getInstance().getUserManager().getUserLogged(), LogicManager.getInstance().getUserManager().getCurrentUser().getIsAdmin()])
 
     return <div className="navbar-container">
             <Box
@@ -30,9 +39,9 @@ const NavBar = ({ setView, setNews }) => {
         <div className="navbar-items">
             <div>prova</div>
             <div>prova</div>
-            <div onClick={() => setView('settings')}>Gestisci utenze</div>
+            {(userLogged && isadmin) && <div onClick={() => setView('settings')}>Gestisci utenze</div>}
         </div>
-        {LogicManager.getInstance().getUserManager().getUserLogged() && <div className="logout-container" onClick={() => doLogout()}>
+        {userLogged && <div className="logout-container" onClick={() => doLogout()}>
             Logout
         </div>}
     </div>;

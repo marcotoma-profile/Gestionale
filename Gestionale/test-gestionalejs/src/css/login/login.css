@@ -1,5 +1,6 @@
 /* 🌆 Stile generale della pagina */
 .login-page {
+    top: var(--navbar-height);
     display: flex;
     justify-content: center;
     align-items: center;

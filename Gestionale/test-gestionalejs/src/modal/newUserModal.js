@@ -18,8 +18,6 @@ const NewUserModal = ( { setModalVisible, refreshError, setUserList } ) => {
             return;
         }
         const ret = await LogicManager.getInstance().getUserManager().createNewUser(userName, userEmail, password, isAdmin);
-        console.log(ret);
-        
         
         if (ret) {
             setUserList(ret);

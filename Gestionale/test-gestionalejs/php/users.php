@@ -26,8 +26,12 @@
             case 2: // creazione di un nuovo utente
                 $response = createNewUser($pdo);
                 break;
+            case 3: // load informazioni di un utente
+                $response = loadUserInfo($pdo);
+                break;
         };
 
+        //print_r($response);
         echo json_encode($response);
         exit;
     } catch (PDOError $e) {
@@ -62,6 +66,10 @@
     }
 
     function createNewUser($pdo) {
+        if (!isset($_SERVER["REQUEST_METHOD"]) || $_SERVER["REQUEST_METHOD"] != "POST") {
+            die("ERROR 400 Bad Request");
+        }
+
         $input_data = file_get_contents("php://input");
         $input = json_decode($input_data, true);
         if (!isset($input['username']) || !isset($input['password'])) {
@@ -110,17 +118,51 @@
     }
 
     function checkUserPresent($pdo, $username) {
-        $query = "select count(distinct id) from users where user_name=:username";
+        $query = "select count(distinct id) as user_count from users where user_name=:username";
         $stmt = $pdo->prepare($query);
         $stmt->bindParam(":username", $username);
         
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($user > 0) {
+        if ($user['user_count'] > 0) {
             return true;
         }
         return false;
+    }
+
+    function loadUserInfo($pdo) {
+        if (!isset($_GET['id'])) {
+            $response = [
+                'error' => true,
+                'errorMessage' => 'Errore: nessun id utente selezionato',
+            ];
+            return $response;
+        }
+
+        $id_utente = $_GET['id'];
+
+        $query = "select id, email, user_name, dt_user_added, is_admin, attivato from users where id=:id_utente";
+        $stmt = $pdo->prepare($query);
+        $stmt->bindParam(":id_utente", $id_utente);
+        
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if (!$user) {
+            $response = [
+                'error' => true,
+                'errorMessage' => 'Errore: nessun utente corrisponde all\'id selezionato',
+            ];
+            return $response;
+        }
+
+        $response = [
+            'error' => false,
+            'errorMessage' => '',
+            'user' => $user,
+        ];
+        return $response;
     }
     
 ?>

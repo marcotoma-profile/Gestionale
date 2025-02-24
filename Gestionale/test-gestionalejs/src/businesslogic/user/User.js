@@ -5,12 +5,19 @@ class User {
     #id;
     #user_name;
     #isAdmin;
-    constructor (id, user_name, isadmin,) {
+    #email;
+    #attivato;
+    #dt_user_added;
+    
+    constructor (id, user_name, isadmin, email, attivato, dt_user_added) {
         this.#id = id;
         this.#user_name = user_name;
         this.#isAdmin = isadmin;
+        this.#attivato = attivato;
+        this.#email = email;
+        this.#dt_user_added = dt_user_added;
     }
-
+    
     getId() {
         return this.#id;
     }
@@ -23,9 +30,17 @@ class User {
         return this.#user_name;
     }
 
-    description () {
-        return "Name: " + this.user_name;
-    } 
+    getEmail() {
+        return this.#email;
+    }
+
+    getAttivato() {
+        return this.#attivato;
+    }
+
+    getDtUserAdded() {
+        return this.#dt_user_added;
+    }
 
     async loadUserList() {
         /**
@@ -85,6 +100,19 @@ class User {
         const userRet = new User(ret['lastId'], username, isadmin);
         new UserLogicException("success", "Utente creato con successo.")
         
+        return userRet;
+    }
+
+    static async loadUserInfo(id) {
+        const ret = await PersistanceManager.doGet('users.php?azione=3&id=' + id);
+        
+        if (ret['error']) {
+            new UserLogicException('error', ret['errorMessage']);
+            return;
+        }
+
+        const userRet = new User(id, ret['user']['user_name'], ret['user']['is_admin'], ret['user']['email'], ret['user']['attivato'], ret['user']['dt_user_added']);
+
         return userRet;
     }
 }

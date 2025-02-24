@@ -4,9 +4,12 @@ import '../css/users/users.css';
 import ModalMainPage from "../modal/modalMainpage.js";
 
 
-const SettingPage = ({ refreshError, setModalView, modalVisible, setModalVisible }) => {
+const SettingPage = ({ refreshError, }) => {
     const [userList, setUserList] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [modalView, setModalView] = useState('');
+    const [modalVisible, setModalVisible] = useState(false);
+    const [userId, setUserId] = useState('');
 
     const loadUsers = async () => {
         const ret = await LogicManager.getInstance().getUserManager().loadUserList();
@@ -37,6 +40,11 @@ const SettingPage = ({ refreshError, setModalView, modalVisible, setModalVisible
                              <div 
                                  key={usr.getId()} 
                                  className="user-card"
+                                 onClick={() => {
+                                    setUserId(usr.getId())
+                                    setModalView('user-info');
+                                    setModalVisible(true);
+                                }}
                              >
                                  <p className="user-name">{usr.getUserName()}</p>
                                  <p className="user-role">
@@ -48,7 +56,10 @@ const SettingPage = ({ refreshError, setModalView, modalVisible, setModalVisible
                                  </p>
                              </div>
                          ))}
-                         <div className="user-card" onClick={() => setModalView('new-user')}>
+                         <div className="user-card" onClick={() => {
+                            setModalView('new-user');
+                            setModalVisible(true);
+                            }}>
                             <div className="user-name">
                                 +
                             </div>
@@ -59,9 +70,9 @@ const SettingPage = ({ refreshError, setModalView, modalVisible, setModalVisible
                      </div>
                  )}
              </div>
-             {modalVisible && <ModalMainPage view={'new-user'} 
+             {modalVisible && <ModalMainPage view={modalView} 
                 setModalVisible={(visib) => setModalVisible(visib)}
-                refreshError={(err) => refreshError(err)} setUserList={updateUserList}/>}
+                refreshError={(err) => refreshError(err)} setUserList={updateUserList} id={userId}/>}
          </div>
          
      );

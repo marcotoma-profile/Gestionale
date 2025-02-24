@@ -1,0 +1,119 @@
+.userinfo-container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 91%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.userinfo-title {
+    padding-bottom: 1em;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    text-align: center;
+    border-bottom: 0.5px solid grey;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.userinfo-card {
+    flex-grow: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 17px;
+}
+
+.user-info label {
+    font-weight: bold;
+}
+
+.user-info p {
+    padding: 10px 15px;
+    width: 11.5em;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor:default;
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+.user-info input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    width: 11.7em;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.button-container div {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.cancel-btn {
+    background: #ccc;
+    color: black;
+}
+
+.cancel-btn:hover {
+    background: #b3b3b3;
+}
+
+.edit-btn {
+    background: #007bff;
+    color: white;
+}
+
+.edit-btn:hover {
+    background: #0056b3;
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+    .userinfo-container {
+        height: fit-content;
+        width: fit-content;
+        padding: 15px;
+    }
+}
+
+.isadmin-btn {
+    padding: 10px 15px;
+    width: 11.2em;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    background: #cccccc75;
+    color: black;
+}
+
+.isadmin-btn:hover {
+    background: #b3b3b3;
+}

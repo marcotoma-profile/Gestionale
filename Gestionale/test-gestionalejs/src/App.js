@@ -38,10 +38,7 @@ function App() {
       {(news && news.length > 0) && <Error message={news} setError={(err) => refreshError(err)}/>}
       {view === 'login' && <Login setView={(view) => setView(view)} setError={(err) => refreshError(err)}/>}
       {view === 'mainpage' && <MainPage />}
-      {view === 'settings' && <SettingPage refreshError={(err) => refreshError(err)} setModalView={(view) => {
-            setModalView(view);
-            setModalVisible(true);
-        }} setModalVisible={(visib) => setModalVisible(visib)} modalVisible={modalVisible} />}
+      {view === 'settings' && <SettingPage refreshError={(err) => refreshError(err)}/>}
     </div>
   );
 }

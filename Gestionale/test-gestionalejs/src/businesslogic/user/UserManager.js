@@ -53,6 +53,16 @@ class UserManager {
 
         return ret;
     }
+
+    async loadUserInfo(id) {
+        if (!this.#currentUser.getIsAdmin()) {
+            new UserLogicException('error', 'Errore: funzione non permessa');
+            return;
+        }
+
+        const ret = await User.loadUserInfo(id);
+        return ret;
+    }
 }
 
 export default UserManager;

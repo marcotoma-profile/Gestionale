@@ -15,15 +15,6 @@
     define("DB_PORT", "6543");
     define("DB_NAME", "postgres");
 
-    try {
-        $dsn = "pgsql:host=" . DB_HOST . ";port=" . DB_PORT . ";dbname=" . DB_NAME . ";";
-        $pdo = new PDO($dsn, DB_USER, DB_PASSWD, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-    } catch(PDOError $e) {
-        $response = [
-            "error" => true,
-            "errorMessage" => "Error during connection to db",
-        ];
-        echo json_encode($response);
-        exit;
-    }
+    $dsn = "pgsql:host=" . DB_HOST . ";port=" . DB_PORT . ";dbname=" . DB_NAME . ";";
+    $pdo = new PDO($dsn, DB_USER, DB_PASSWD, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
 ?>

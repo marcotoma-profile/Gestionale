@@ -19,7 +19,7 @@ class UserManager {
     }
 
     async doLogin(username, passwd) {
-        this.#currentUser = await User.doLogin(username, passwd);
+        this.#currentUser = await User.doLogin1(username, passwd);
         this.#userLogged = true;
         return this.#currentUser;
     }

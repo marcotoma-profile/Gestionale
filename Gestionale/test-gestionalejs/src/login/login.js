@@ -21,7 +21,7 @@ const Login = ({ setView, setError }) => {
     }
 
     useEffect(() => {
-        //doLogin();
+        doLogin();
     }, [])
 
     return <div className="login-page">

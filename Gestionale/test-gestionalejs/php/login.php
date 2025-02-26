@@ -30,7 +30,7 @@
     $input_data = file_get_contents("php://input");
     $input = json_decode($input_data, true);
 
-    if (isset($input["username"]) && isset($input["password"])) {
+    if (isset($_POST["username"]) && isset($input["password"])) {
         if ($input["username"] == "" || $input["password"] == "") { // la richiesta non contiene lo username o la password
             // http_response_code(400); // Bad request
             $response = [

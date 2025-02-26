@@ -73,6 +73,19 @@ class User {
         new UserLogicException("success", "Login avvenuto con successo");
         return user;
     }
+    static async doLogin1(username, passwd) {
+        const data = (username!=='' && passwd!=='') ? {username: username, password: passwd} : undefined;
+
+        const ret = await PersistanceManager.doPost('login1.php', data);        
+
+        if (ret["error"]){
+            throw new UserLogicException("error", ret["errorMessage"]);
+        }
+
+        const user = new User(ret["id"], ret["username"], ret["isAdmin"]);
+        new UserLogicException("success", "Login avvenuto con successo");
+        return user;
+    }
 
     static async doLogout() {
         /**
@@ -90,7 +103,7 @@ class User {
         // prima faccio la chiamata al server, poi aggiorno l'id
         const data = {username: username, email: email, password: password, isAdmin: isadmin};
         
-        const ret = await PersistanceManager.doPost(data, 'users.php?azione=2');
+        const ret = await PersistanceManager.doPost('users.php?azione=2', data);
 
         if (ret['error']){
             new UserLogicException('error', ret['errorMessage']);

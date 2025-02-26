@@ -13,7 +13,7 @@ const SettingPage = ({ refreshError, }) => {
 
     const loadUsers = async () => {
         const ret = await LogicManager.getInstance().getUserManager().loadUserList();
-        if (ret.length == 0) {
+        if (ret.length === 0) {
             refreshError(1);
         }
         setUserList(ret);

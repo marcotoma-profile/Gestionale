@@ -16,9 +16,9 @@ function App() {
 
   const refreshError = (option) => {    
     if (option === 1) {
-      const newError = LogicManager.getInstance().getExceptionManager().getMessage();
+      const newError = LogicManager.getInstance().getExceptionManager().getMessage();      
       
-      if (newError.length > 0){
+      if (newError.length > 0 && newError[1]){
         
         setNews(prev => [...prev, newError]);
         setTimeout(() => {refreshError(-1)}, 3000);

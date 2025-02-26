@@ -19,7 +19,7 @@ class PersistanceManager {
         return data
     }
 
-    static async doPost(data, phpfile) {
+    static async doPost(phpfile, data) {
         const response = await fetch(this.urlbackend+phpfile, {
             method: "POST",
             headers: {
